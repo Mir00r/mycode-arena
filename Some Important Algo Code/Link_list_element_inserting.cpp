@@ -73,6 +73,25 @@ Node* Insert (Node* head, int n){
 	return head;
 }
 
+// Insert Element in Tail
+Node* Insert (Node* head, int n){
+	
+	struct Node* tmp = (Node*)malloc( sizeof (struct Node) ); 
+	tmp->data = n;
+	tmp->next = NULL;
+	if (head == NULL){ 
+        //tmp->next = head;
+	    return tmp;
+    }
+    
+    struct Node* temp = head;
+	while (temp->next != NULL) {
+	   temp = temp->next;
+	}
+	temp->next = tmp;
+	return head;
+}
+
 void Print (Node* head){
 	//struct Node* tmp = head;
 	
