@@ -71,6 +71,31 @@ Node* Reverse(Node *head) {
 	return head;
 }
 
+// Another Way 
+Node* Reverse(Node *head)
+{
+    if(head == NULL || head->next == NULL)
+        return head;
+
+    struct Node *curr, *prev, *jump;
+     
+    curr = head;
+    prev = NULL;
+    jump = NULL;
+    
+    while(curr != NULL){
+        
+        jump = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = jump; 
+    }
+
+    head = prev;
+
+    return head;
+}
+
 
 /*
  * 
