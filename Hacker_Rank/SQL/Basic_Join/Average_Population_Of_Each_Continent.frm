@@ -1,4 +1,4 @@
-Problem Link -> https://www.hackerrank.com/challenges/african-cities
+Problem Link -> https://www.hackerrank.com/challenges/average-population-of-each-continent
 
 // For ORACLE SQL and MySQL
 
