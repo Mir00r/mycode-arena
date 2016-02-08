@@ -1,0 +1,14 @@
+Problem Link -> https://www.hackerrank.com/challenges/the-report
+
+// For MySQL
+
+select 
+    if(grades.grade < 8 , concat('NULL'), students.name),
+    grades.grade,
+    students.marks
+    from students
+    inner join grades 
+    on students.marks >= grades.min_mark
+    and students.marks <= grades.max_mark
+    group by grades.grade desc, 
+    students.name, students.marks asc;
