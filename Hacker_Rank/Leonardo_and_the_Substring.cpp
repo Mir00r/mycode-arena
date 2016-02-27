@@ -29,7 +29,7 @@ int main(){
         string S;
         cin>>S;
         
-        LL cnt = 1, ans = 0;
+        LLI cnt = 1, ans = 0;
         for( i = 1; i < S.size(); i++){
             if(S[ i ] != S[ i - 1 ])
                 cnt++;
