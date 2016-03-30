@@ -7,49 +7,80 @@
 
 using namespace std;
 
-#define l long int
+//#define l long int
 #define ll long long int
-#define MAX 1005
-#define row 1006
-#define col 1005
+#define MAX 1010
+#define row 1010
+#define col 1010
 #define L __int64
 
-int a[MAX], b[MAX], memo[row][col];
-int i, j;
-char str[MAX];
+char str[ MAX ];
+int memo[ row ][ col ];
 
-/*int LCS(int m, int n){
-    if (m > n) return 0;
-    int &result = memo[m][n];
-    if (result != -1) return result;
-    if (m == n) return result = 1;
-    if (str[m] == str[n]) return result = 2 + LCS(m+1, n-1);
-    return result = max(LCS(m+1, n), LCS(m ,n-1));
-}*/
+int longestPalin( int l, int r ) {
+	if ( l == r )
+		return 1;
+	if ( l + 1 == r ) {
+		if ( str[ l ] == str[ r ] )
+			return 2;
+		else
+			return 1;
+	}
 
-/*int LCS (int m, int n){
-    if (m > n) return 0;
-    result = memo[m][n];
-    if (result != -1) return result;
-    if (m == n) return result = 1;
-    if (result != -1) return result;
-    if (str[m] == str[n]) result = LCS (m+1, n-1) + 2;
-    else
-        result = max (LCS (m+1, n), LCS (m, n-1));
-    memo[m][n] = result;
-    return result;
-}*/
+	if ( memo[ l ][ r ] != -1 )
+		return memo[ l ][ r ];
 
-int LCS (int m, int n){
-    if (m == -1 || n == -1) return 0;
-    int &result = memo[m][n];
-    if (result != -1) return result;
-    if (a[m] == b[n]) return LCS (m+1, n-1) + 1;
-    else
-        result = max (LCS (m-1, n), LCS (m, n-1));
-    memo[m][n] = result;
-    return result;
+	if ( str[ l ] == str[ r ] )
+		return memo[ l ][ r ] = 2 + longestPalin( l + 1, r - 1 );
+	else
+		return memo[ l ][ r ] = max ( longestPalin ( l, r - 1 ), longestPalin ( l + 1, r ) );
 }
+
+int main() {
+	int tc, len;
+	scanf("%d", &tc);
+	getc( stdin );
+
+	while ( tc-- ) {
+		gets( str );
+        len = strlen ( str );
+
+		if ( len == 0) {
+			printf("0\n");
+			continue;
+		}
+
+		memset( memo, -1, sizeof( memo ) );
+		int ans = longestPalin( 0, len - 1 );
+
+		printf("%d\n", ans);
+	}
+	return 0;
+}
+
+
+/*
+int memo[ row ][ col ];
+char str[ MAX ];
+
+int LCS ( int m, int n ){
+    if ( m > n ) return 0;
+    if ( m == n ) return memo[ m ][ n ] = 1;
+    if ( memo[ m ][ n ] != -1 ) return memo[ m ][ n ];
+
+    int res = 0;
+    if ( str[ m ] == str[ n ]) {
+       // memo[ m ][ n ] = LCS ( m + 1, n - 1 ) + 2;
+        res = max ( res , LCS ( m + 1, n - 1 ) + 2 );
+    }
+    else{
+       // memo[ m ][ n ] = max ( LCS ( m - 1, n ), LCS ( m, n - 1 ) );
+        res = max ( res, LCS ( m + 1, n ) );
+        res = max ( res, LCS ( m, n - 1 ) );
+    }
+    return memo[ m ][ n ] = res ;
+}
+
 
 int main(){
     int tc, len, tmp;
@@ -59,9 +90,16 @@ int main(){
         gets(str);
         //scanf ("%s", str);
         len = strlen(str);
-        memset (memo, -1, sizeof (memo));
-        tmp = LCS (0, len-1);
-        printf ("%d\n", tmp);
+        memset ( memo, -1, sizeof (memo) );
+        len--;
+
+        if ( len != 0 ) {
+            tmp = LCS ( 0, len );
+            printf ("%d\n", tmp);
+        }
+        else
+            puts ("0");
     }
     return 0;
 }
+*/
